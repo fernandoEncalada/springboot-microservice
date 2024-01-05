@@ -1,28 +1,36 @@
 package com.microservice.student.studentmicroservice.service;
 
 import com.microservice.student.studentmicroservice.entities.Student;
+import com.microservice.student.studentmicroservice.persistence.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class StudentServiceImpl implements IStudentService{
+public class StudentServiceImpl implements IStudentService {
+
+    @Autowired
+    StudentRepository studentRepository;
+
     @Override
     public List<Student> findAll() {
-        return null;
+
+        return (List<Student>) studentRepository.findAll();
     }
 
     @Override
     public Student findById(Long id) {
-        return null;
+        return studentRepository.findById(id).orElseThrow();
     }
 
     @Override
     public void save(Student student) {
-
+        studentRepository.save(student);
     }
 
     @Override
     public List<Student> findByIdCourse(Long idCourse) {
-        return null;
+        return studentRepository.findAllByCourseId(idCourse);
     }
 }
